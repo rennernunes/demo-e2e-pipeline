@@ -1,0 +1,1287 @@
+/* Agent Finder Main Styles */
+/* Based on design specifications */
+
+/* Import variables */
+@import "./variables.css";
+
+/* Base Styles */
+.agent-finder {
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--color-gray-900);
+  padding: 16px;
+}
+
+@media (min-width: 1024px) {
+  .agent-finder {
+    padding: 24px;
+  }
+}
+
+/* Typography */
+.agent-finder h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.agent-finder h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.agent-finder h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.agent-finder h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Header Section */
+.agent-finder__header {
+  margin-bottom: 24px;
+}
+
+.agent-finder__title {
+  margin-bottom: 16px;
+}
+
+.agent-finder__search-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Content Layout */
+.agent-finder__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .agent-finder__content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Filter Panel */
+.agent-finder__filter-panel {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+  .agent-finder__filter-panel {
+    width: 240px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+    margin-bottom: 0;
+  }
+}
+
+.agent-finder__filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 4px;
+  font-weight: 500;
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.agent-finder__filter-toggle:hover {
+  background-color: var(--color-gray-50);
+}
+
+.agent-finder__filter-toggle-icon {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Results Section */
+.agent-finder__results {
+  flex: 1;
+}
+
+.agent-finder__results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.agent-finder__results-count {
+  font-size: 14px;
+  color: var(--color-gray-700);
+}
+
+.agent-finder__refresh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agent-finder__refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background-color: white;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.agent-finder__refresh-button:hover {
+  background-color: var(--color-gray-50);
+}
+
+.agent-finder__last-updated {
+  font-size: 12px;
+  color: var(--color-gray-500);
+}
+
+/* Search Bar Component */
+.search-bar {
+  flex: 1;
+}
+
+.search-bar__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 6px;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar__container:focus-within {
+  border: 2px solid var(--color-blue-500);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.search-bar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  color: var(--color-gray-500);
+}
+
+.search-bar__input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--color-gray-900);
+  outline: none;
+  padding: 0;
+}
+
+.search-bar__input::placeholder {
+  color: var(--color-gray-500);
+}
+
+.search-bar__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-gray-500);
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.search-bar__clear:hover {
+  background-color: var(--color-gray-100);
+}
+
+.search-bar__shortcut {
+  display: none;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 12px;
+  color: var(--color-gray-500);
+}
+
+@media (min-width: 768px) {
+  .search-bar__shortcut {
+    display: flex;
+  }
+}
+
+.search-bar__kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 4px;
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-300);
+  font-size: 12px;
+  font-family: monospace;
+  color: var(--color-gray-700);
+}
+
+.search-bar__kbd-plus {
+  margin: 0 4px;
+}
+
+/* Filter Panel Component */
+.filter-panel {
+  background-color: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.filter-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter-panel__title {
+  margin: 0;
+}
+
+.filter-panel__reset-button {
+  font-size: 14px;
+  color: var(--color-blue-500);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.filter-panel__reset-button:hover {
+  color: var(--color-blue-600);
+  text-decoration: underline;
+}
+
+.filter-panel__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filter-panel__section {
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: 16px;
+}
+
+.filter-panel__section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.filter-panel__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.filter-panel__section-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.filter-panel__section-icon {
+  color: var(--color-gray-500);
+  transition: transform 0.2s;
+}
+
+.filter-panel__section-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.filter-panel__section-content {
+  margin-top: 12px;
+}
+
+.filter-panel__footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.filter-panel__tip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.filter-panel__platform-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-panel__checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.filter-panel__checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  accent-color: var(--color-blue-500);
+}
+
+.filter-panel__checkbox-text {
+  font-size: 14px;
+  color: var(--color-gray-700);
+}
+
+/* Availability Filter Component */
+.availability-filter__options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.availability-filter__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.availability-filter__option:hover {
+  background-color: var(--color-gray-50);
+}
+
+.availability-filter__option--selected {
+  background-color: var(--color-blue-50);
+}
+
+.availability-filter__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.availability-filter__label {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-gray-700);
+}
+
+.availability-filter__checkmark {
+  color: var(--color-blue-500);
+}
+
+.availability-filter__shortcut {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--color-gray-500);
+}
+
+/* Skills & Teams Filter Components */
+.skills-filter__search,
+.teams-filter__search {
+  margin-bottom: 12px;
+}
+
+.skills-filter__search-container,
+.teams-filter__search-container {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 4px;
+  background-color: white;
+  padding: 0 8px;
+  transition: border-color 0.2s;
+}
+
+.skills-filter__search-container:focus-within,
+.teams-filter__search-container:focus-within {
+  border-color: var(--color-blue-500);
+}
+
+.skills-filter__search-icon,
+.teams-filter__search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+  margin-right: 8px;
+}
+
+.skills-filter__search-input,
+.teams-filter__search-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--color-gray-900);
+  outline: none;
+  padding: 0;
+}
+
+.skills-filter__search-clear,
+.teams-filter__search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-gray-500);
+}
+
+.skills-filter__options,
+.teams-filter__options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.skills-filter__options-list,
+.teams-filter__options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skills-filter__option,
+.teams-filter__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.skills-filter__checkbox,
+.teams-filter__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.skills-filter__checkbox-custom,
+.teams-filter__checkbox-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 4px;
+  background-color: white;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.skills-filter__checkbox:checked + .skills-filter__checkbox-custom,
+.teams-filter__checkbox:checked + .teams-filter__checkbox-custom {
+  background-color: var(--color-blue-500);
+  border-color: var(--color-blue-500);
+}
+
+.skills-filter__checkbox:focus + .skills-filter__checkbox-custom,
+.teams-filter__checkbox:focus + .teams-filter__checkbox-custom {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.skills-filter__label,
+.teams-filter__label {
+  font-size: 14px;
+  color: var(--color-gray-700);
+}
+
+.skills-filter__no-results,
+.teams-filter__no-results {
+  padding: 12px 0;
+  font-size: 14px;
+  color: var(--color-gray-500);
+  text-align: center;
+}
+
+.skills-filter__show-more,
+.skills-filter__show-less,
+.teams-filter__show-more,
+.teams-filter__show-less {
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 8px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--color-blue-500);
+  cursor: pointer;
+  text-align: center;
+}
+
+.skills-filter__show-more:hover,
+.skills-filter__show-less:hover,
+.teams-filter__show-more:hover,
+.teams-filter__show-less:hover {
+  color: var(--color-blue-600);
+  text-decoration: underline;
+}
+
+.skills-filter__selected,
+.teams-filter__selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.skills-filter__selected-count,
+.teams-filter__selected-count {
+  font-size: 12px;
+  color: var(--color-gray-600);
+}
+
+.skills-filter__clear-all,
+.teams-filter__clear-all {
+  font-size: 12px;
+  color: var(--color-blue-500);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.skills-filter__clear-all:hover,
+.teams-filter__clear-all:hover {
+  color: var(--color-blue-600);
+  text-decoration: underline;
+}
+
+/* Agent Grid Component */
+.agent-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .agent-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .agent-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.agent-grid__item {
+  width: 100%;
+  min-width: 0; /* Prevent overflow */
+}
+
+.agent-grid__loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.agent-grid__loading-text {
+  background-color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Agent Card Component */
+.agent-card {
+  background-color: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+  width: 100%;
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+.agent-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.agent-card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.agent-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.agent-card__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agent-card__avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-600);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.agent-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.agent-card__name {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agent-card__platform {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--color-gray-600);
+}
+
+.agent-card__platform-icon {
+  display: flex;
+  align-items: center;
+}
+
+.agent-card__status {
+  margin-left: auto;
+  padding-left: 12px;
+}
+
+.agent-card__details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.agent-card__workload {
+  margin-bottom: 4px;
+}
+
+.agent-card__workload-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.agent-card__workload-label {
+  font-size: 12px;
+  color: var(--color-gray-600);
+}
+
+.agent-card__workload-value {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.agent-card__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.agent-card__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.agent-card__metric-label {
+  font-size: 12px;
+  color: var(--color-gray-600);
+  margin-bottom: 2px;
+}
+
+.agent-card__metric-value {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.agent-card__skills {
+  margin-top: auto;
+}
+
+.agent-card__skills-title,
+.agent-card__teams-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin: 0 0 8px;
+}
+
+.agent-card__skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.agent-card__skills-more {
+  font-size: 12px;
+  color: var(--color-gray-500);
+  padding: 4px 8px;
+}
+
+.agent-card__teams-list {
+  font-size: 12px;
+  color: var(--color-gray-700);
+}
+
+.agent-card__footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.agent-card__action-button {
+  flex: 1;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.agent-card__action-button--primary {
+  background-color: var(--color-blue-500);
+  color: white;
+  border: none;
+}
+
+.agent-card__action-button--primary:hover {
+  background-color: var(--color-blue-600);
+}
+
+.agent-card__action-button--secondary {
+  background-color: white;
+  color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-300);
+}
+
+.agent-card__action-button--secondary:hover {
+  background-color: var(--color-gray-50);
+}
+
+/* Status Indicator Component */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-indicator__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-indicator__label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Workload Bar Component */
+.workload-bar {
+  width: 100%;
+}
+
+.workload-bar__track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-gray-200);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.workload-bar__fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease-out;
+}
+
+/* Skill Tag Component */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: var(--color-gray-100);
+  border-radius: 4px;
+  max-width: 120px;
+}
+
+.skill-tag__text {
+  font-size: 12px;
+  color: var(--color-gray-600);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Empty State Component */
+.empty-state {
+  padding: 48px 0;
+  text-align: center;
+}
+
+.empty-state__container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.empty-state__icon {
+  margin-bottom: 16px;
+}
+
+.empty-state__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-state__message {
+  font-size: 14px;
+  color: var(--color-gray-600);
+  margin-bottom: 16px;
+}
+
+.empty-state__sub-message {
+  font-size: 14px;
+  color: var(--color-gray-500);
+}
+
+.empty-state__action-button {
+  padding: 8px 16px;
+  background-color: var(--color-blue-500);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.empty-state__action-button:hover {
+  background-color: var(--color-blue-600);
+}
+
+/* Error State Component */
+.error-state {
+  padding: 48px 0;
+  text-align: center;
+}
+
+.error-state__container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.error-state__icon {
+  margin-bottom: 16px;
+}
+
+.error-state__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-red-500);
+}
+
+.error-state__message {
+  font-size: 14px;
+  color: var(--color-gray-600);
+  margin-bottom: 16px;
+}
+
+.error-state__retry-button {
+  padding: 8px 16px;
+  background-color: var(--color-blue-500);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.error-state__retry-button:hover {
+  background-color: var(--color-blue-600);
+}
+
+.error-state__last-updated {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--color-gray-500);
+}
+
+/* Loading State Component */
+.loading-state {
+  width: 100%;
+}
+
+.loading-state__message {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--color-gray-600);
+}
+
+/* Skeleton UI */
+.agent-card--skeleton {
+  pointer-events: none;
+}
+
+.agent-card__avatar--skeleton {
+  background-color: var(--color-gray-200);
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__name--skeleton {
+  height: 16px;
+  width: 120px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__platform--skeleton {
+  height: 12px;
+  width: 80px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__status--skeleton {
+  height: 16px;
+  width: 80px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__workload-label--skeleton {
+  height: 12px;
+  width: 80px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__workload-value--skeleton {
+  height: 12px;
+  width: 30px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__workload-bar--skeleton {
+  height: 6px;
+  width: 100%;
+  background-color: var(--color-gray-200);
+  border-radius: 3px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__metric--skeleton {
+  height: 40px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__skills-title--skeleton {
+  height: 12px;
+  width: 40px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__skill--skeleton {
+  height: 24px;
+  width: 80px;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.agent-card__button--skeleton {
+  height: 36px;
+  flex: 1;
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* RTL Support */
+[dir="rtl"] .agent-card__avatar {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+[dir="rtl"] .agent-card__status {
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .agent-finder {
+    color: var(--color-gray-100);
+  }
+
+  .agent-card,
+  .filter-panel,
+  .search-bar__container,
+  .skills-filter__search-container,
+  .teams-filter__search-container {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  .agent-card:hover {
+    box-shadow: var(--shadow-md-dark);
+  }
+
+  .agent-finder__filter-toggle,
+  .agent-finder__refresh-button {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-gray-300);
+  }
+
+  .agent-finder__filter-toggle:hover,
+  .agent-finder__refresh-button:hover {
+    background-color: var(--color-gray-700);
+  }
+
+  .search-bar__input,
+  .skills-filter__search-input,
+  .teams-filter__search-input {
+    color: var(--color-gray-100);
+  }
+
+  .search-bar__input::placeholder,
+  .skills-filter__search-input::placeholder,
+  .teams-filter__search-input::placeholder {
+    color: var(--color-gray-500);
+  }
+
+  .search-bar__kbd {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+    color: var(--color-gray-300);
+  }
+
+  .agent-card__name {
+    color: var(--color-gray-100);
+  }
+
+  .agent-card__platform-name,
+  .agent-card__workload-label,
+  .agent-card__metric-label,
+  .agent-card__teams-list {
+    color: var(--color-gray-400);
+  }
+
+  .agent-card__action-button--secondary {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-600);
+  }
+
+  .agent-card__action-button--secondary:hover {
+    background-color: var(--color-gray-700);
+  }
+
+  .skill-tag {
+    background-color: var(--color-gray-700);
+  }
+
+  .skill-tag__text {
+    color: var(--color-gray-300);
+  }
+
+  .workload-bar__track {
+    background-color: var(--color-gray-700);
+  }
+
+  .availability-filter__option:hover {
+    background-color: var(--color-gray-700);
+  }
+
+  .availability-filter__option--selected {
+    background-color: var(--color-blue-900);
+  }
+
+  .availability-filter__label {
+    color: var(--color-gray-300);
+  }
+
+  .skills-filter__checkbox-custom,
+  .teams-filter__checkbox-custom {
+    border-color: var(--color-gray-600);
+    background-color: var(--color-gray-800);
+  }
+
+  .skills-filter__label,
+  .teams-filter__label {
+    color: var(--color-gray-300);
+  }
+
+  .agent-grid__loading-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .agent-grid__loading-text {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-100);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .agent-grid__item,
+  .agent-grid__item-enter,
+  .agent-grid__item-enter-active,
+  .agent-grid__item-exit,
+  .agent-grid__item-exit-active,
+  .workload-bar__fill {
+    transition: none;
+  }
+
+  @keyframes pulse {
+    0%,
+    50%,
+    100% {
+      opacity: 0.7;
+    }
+  }
+}

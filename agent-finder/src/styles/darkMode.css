@@ -1,0 +1,322 @@
+/* Dark Mode Styles */
+/* These styles will be applied when the user's system is set to dark mode */
+
+@media (prefers-color-scheme: dark) {
+  /* Base Styles */
+  body {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-100);
+  }
+  
+  /* Agent Finder Component */
+  .agent-finder {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-100);
+  }
+  
+  /* Search Bar */
+  .search-bar__container {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+  
+  .search-bar__container:focus-within {
+    border-color: var(--color-blue-500);
+    box-shadow: 0 0 0 2px rgba(75, 147, 255, 0.3);
+  }
+  
+  .search-bar__input {
+    color: var(--color-gray-100);
+  }
+  
+  .search-bar__input::placeholder {
+    color: var(--color-gray-500);
+  }
+  
+  .search-bar__icon svg path {
+    stroke: var(--color-gray-500);
+  }
+  
+  .search-bar__clear:hover {
+    background-color: var(--color-gray-700);
+  }
+  
+  .search-bar__kbd {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+    color: var(--color-gray-300);
+  }
+  
+  /* Filter Panel */
+  .filter-panel {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+  
+  .filter-panel__section {
+    border-color: var(--color-gray-700);
+  }
+  
+  .filter-panel__section-title {
+    color: var(--color-gray-100);
+  }
+  
+  .filter-panel__section-icon {
+    color: var(--color-gray-400);
+  }
+  
+  .filter-panel__footer {
+    border-color: var(--color-gray-700);
+  }
+  
+  .filter-panel__tip {
+    color: var(--color-gray-400);
+  }
+  
+  .filter-panel__checkbox-text {
+    color: var(--color-gray-300);
+  }
+  
+  /* Filter Toggle Button */
+  .agent-finder__filter-toggle {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-gray-300);
+  }
+  
+  .agent-finder__filter-toggle:hover {
+    background-color: var(--color-gray-700);
+  }
+  
+  /* Availability Filter */
+  .availability-filter__option {
+    background-color: var(--color-gray-800);
+  }
+  
+  .availability-filter__option:hover {
+    background-color: var(--color-gray-700);
+  }
+  
+  .availability-filter__option--selected {
+    background-color: rgba(59, 130, 246, 0.2);
+  }
+  
+  .availability-filter__label {
+    color: var(--color-gray-300);
+  }
+  
+  .availability-filter__shortcut {
+    color: var(--color-gray-500);
+  }
+  
+  /* Skills & Teams Filters */
+  .skills-filter__search-container,
+  .teams-filter__search-container {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+  
+  .skills-filter__search-container:focus-within,
+  .teams-filter__search-container:focus-within {
+    border-color: var(--color-blue-500);
+  }
+  
+  .skills-filter__search-input,
+  .teams-filter__search-input {
+    color: var(--color-gray-100);
+  }
+  
+  .skills-filter__search-input::placeholder,
+  .teams-filter__search-input::placeholder {
+    color: var(--color-gray-500);
+  }
+  
+  .skills-filter__checkbox-custom,
+  .teams-filter__checkbox-custom {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-600);
+  }
+  
+  .skills-filter__label,
+  .teams-filter__label {
+    color: var(--color-gray-300);
+  }
+  
+  .skills-filter__no-results,
+  .teams-filter__no-results {
+    color: var(--color-gray-400);
+  }
+  
+  .skills-filter__selected,
+  .teams-filter__selected {
+    border-color: var(--color-gray-700);
+  }
+  
+  .skills-filter__selected-count,
+  .teams-filter__selected-count {
+    color: var(--color-gray-400);
+  }
+  
+  /* Agent Card */
+  .agent-card {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    box-shadow: var(--shadow-sm-dark);
+  }
+  
+  .agent-card:hover {
+    box-shadow: var(--shadow-md-dark);
+  }
+  
+  .agent-card__avatar-placeholder {
+    background-color: var(--color-gray-700);
+    color: var(--color-gray-300);
+  }
+  
+  .agent-card__name {
+    color: var(--color-gray-100);
+  }
+  
+  .agent-card__platform {
+    color: var(--color-gray-400);
+  }
+  
+  .agent-card__workload-label {
+    color: var(--color-gray-400);
+  }
+  
+  .agent-card__metric-label {
+    color: var(--color-gray-400);
+  }
+  
+  .agent-card__skills-title,
+  .agent-card__teams-title {
+    color: var(--color-gray-300);
+  }
+  
+  .agent-card__teams-list {
+    color: var(--color-gray-300);
+  }
+  
+  .agent-card__action-button--secondary {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-600);
+  }
+  
+  .agent-card__action-button--secondary:hover {
+    background-color: var(--color-gray-700);
+  }
+  
+  /* Skill Tag */
+  .skill-tag {
+    background-color: var(--color-gray-700);
+  }
+  
+  .skill-tag__text {
+    color: var(--color-gray-300);
+  }
+  
+  /* Workload Bar */
+  .workload-bar__track {
+    background-color: var(--color-gray-700);
+  }
+  
+  /* Empty State */
+  .empty-state__title {
+    color: var(--color-gray-100);
+  }
+  
+  .empty-state__message {
+    color: var(--color-gray-300);
+  }
+  
+  .empty-state__sub-message {
+    color: var(--color-gray-400);
+  }
+  
+  /* Error State */
+  .error-state__message {
+    color: var(--color-gray-300);
+  }
+  
+  .error-state__last-updated {
+    color: var(--color-gray-400);
+  }
+  
+  /* Loading State */
+  .loading-state__message {
+    color: var(--color-gray-300);
+  }
+  
+  /* Skeleton UI */
+  .agent-card__avatar--skeleton,
+  .agent-card__name--skeleton,
+  .agent-card__platform--skeleton,
+  .agent-card__status--skeleton,
+  .agent-card__workload-label--skeleton,
+  .agent-card__workload-value--skeleton,
+  .agent-card__workload-bar--skeleton,
+  .agent-card__metric--skeleton,
+  .agent-card__skills-title--skeleton,
+  .agent-card__skill--skeleton,
+  .agent-card__button--skeleton {
+    background-color: var(--color-gray-700);
+  }
+  
+  @keyframes pulse-dark {
+    0% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 0.4;
+    }
+  }
+  
+  .agent-card__avatar--skeleton,
+  .agent-card__name--skeleton,
+  .agent-card__platform--skeleton,
+  .agent-card__status--skeleton,
+  .agent-card__workload-label--skeleton,
+  .agent-card__workload-value--skeleton,
+  .agent-card__workload-bar--skeleton,
+  .agent-card__metric--skeleton,
+  .agent-card__skills-title--skeleton,
+  .agent-card__skill--skeleton,
+  .agent-card__button--skeleton {
+    animation: pulse-dark 1.5s infinite;
+  }
+  
+  /* Results Section */
+  .agent-finder__results-count {
+    color: var(--color-gray-300);
+  }
+  
+  .agent-finder__refresh-button {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-gray-300);
+  }
+  
+  .agent-finder__refresh-button:hover {
+    background-color: var(--color-gray-700);
+  }
+  
+  .agent-finder__last-updated {
+    color: var(--color-gray-500);
+  }
+  
+  /* Loading Overlay */
+  .agent-grid__loading-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .agent-grid__loading-text {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-100);
+    box-shadow: var(--shadow-md-dark);
+  }
+}
