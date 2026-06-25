@@ -87,6 +87,34 @@ A distinção importante aqui é entre **dois cenários diferentes**:
 
 ---
 
+## Se ela pedir para ver um exemplo da pipeline
+
+Abra o arquivo `.github/workflows/qa-pipeline.yml` e narre em cima dos comentários:
+
+**`on: pull_request`**
+> "Esse é o gatilho. Ninguém configura nada — toda vez que um PR é aberto, isso roda automaticamente."
+
+**`needs: unit-tests`**
+> "Esse é o encadeamento dos quality gates. O Gate 2 só começa se o Gate 1 passou.
+> Se o unitário quebrou, o E2E nem executa — economiza tempo e deixa claro onde está o problema."
+
+**`npm start &` + `wait-on`**
+> "O próprio CI sobe o frontend para testar. Ambiente isolado, não depende de ninguém estar
+> com o servidor rodando."
+
+**`robot tests/features/`**
+> "Aqui rodam os cenários Gherkin — os mesmos que o QA escreveu em português, sem intervenção manual."
+
+**`upload-artifact`**
+> "Se falhar, o relatório HTML fica disponível para download. O QA vê exatamente qual cenário
+> quebrou, em qual passo, com screenshot."
+
+**Se ela perguntar "mas isso é só para GitHub?"**
+> "A lógica é a mesma em qualquer ferramenta: Jenkins, Azure DevOps, GitLab CI.
+> Muda a sintaxe, não a estratégia."
+
+---
+
 ## Pré-requisitos da demo
 
 - `agent-finder` rodando em `http://localhost:3000`
