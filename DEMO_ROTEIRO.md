@@ -7,46 +7,92 @@
 **Fio condutor:** "Você quer sair de apertar um botão à noite para testes rodando sozinhos
 no pipeline. Essa demo mostra o caminho — e como IA reduz o atrito de chegar lá."
 
+---
+
 ### Os 4 pontos dela e como conectar
 
 **1. Automação na esteira**
-Mostre o pipeline ao vivo. A frase que funciona:
-> "O QA define o quality gate — o que bloqueia o merge e o que não bloqueia.
-> A esteira executa sozinha. Ninguém precisa apertar botão."
 
-Se ela perguntar como montar a pipe:
-> "A estratégia é simples: unitários e E2E a cada PR, e ao subir para staging roda tudo de novo.
-> Dois momentos de validação — antes de entrar no código e antes de ir para o ambiente.
-> A configuração em si é trabalho conjunto com o time de DevOps de vocês."
+Mostre o pipeline ao vivo. A frase que funciona:
+> "O QA define os quality gates — a esteira executa sozinha. Ninguém precisa apertar botão."
+
+**Se ela perguntar "o que são quality gates?"**
+> "São as regras que determinam se um código pode avançar ou não na esteira.
+> Por exemplo: 'só faz merge se os testes unitários passarem' é um quality gate.
+> 'Só sobe para produção se o E2E de fumaça passar' é outro.
+> O QA decide o que bloqueia — não o desenvolvedor, não o gerente."
+
+**Se ela perguntar como montar a pipe, a estratégia em dois momentos:**
+```
+1. A cada PR (rápido — máx 20 min)
+   └─ unitários: validam a lógica do código alterado      ~2min
+   └─ E2E smoke: cobrem só os fluxos críticos do sistema  ~15min
+   └─ falhou = bloqueia o merge automaticamente
+
+2. De madrugada (pode demorar — regressão completa)
+   └─ suite completa de E2E rodando contra staging        ~2h
+   └─ resultado no dashboard pela manhã
+   └─ ninguém esperou, ninguém apertou botão
+```
+> "Dois ritmos: rápido no PR para não travar o time, completo à noite para garantir o sistema."
+
+---
 
 **2. Legado vs produto novo**
+
 Valide o medo dela antes de propor:
-> "Faz todo sentido não exigir cobertura alta em código antigo — você para a empresa.
-> A abordagem: legado bloqueia só em falha crítica de segurança.
-> Produto novo já nasce com o padrão — unitário obrigatório, E2E nos fluxos críticos."
+> "Faz todo sentido não exigir cobertura alta em código antigo — você para a empresa."
+
+A distinção importante aqui é entre **dois cenários diferentes**:
+
+- **Legado puro** (código de 10 anos que ninguém toca): quality gate só em falha crítica de
+  segurança. Não exige cobertura nova. O SonarQube em modo conservador faz isso.
+
+- **Feature nova sendo adicionada num sistema legado**: aí sim, o código novo que está
+  sendo escrito já nasce com unitários. Não precisa testar o legado todo — só o que você tocou.
+
+- **Produto digital novo** (como o AgentFinder desta demo): nasce com o padrão completo
+  desde o primeiro PR.
+
+> "A regra prática: você não retesta o passado. Você garante que o novo não piora o que existe."
+
+---
 
 **3. Pirâmide de testes**
 
 | Camada | O que testa | Velocidade | Manutenção |
 |---|---|---|---|
-| Unitário | lógica isolada | segundos | baixa |
-| Integração | componentes juntos | minutos | média |
-| E2E (essa demo) | fluxo do usuário | minutos | alta |
+| Unitário | lógica isolada de uma função | segundos | baixa |
+| Integração | dois ou mais componentes juntos | minutos | média |
+| E2E smoke | fluxos críticos do usuário (PR) | ~15min | alta |
+| E2E regressão | sistema completo (madrugada) | ~2h | alta |
 
-> "Comece pelo topo — E2E nos fluxos que, se quebrarem, ninguém percebe até produção.
+> "Comece pelos E2E nos fluxos que, se quebrarem, ninguém percebe até produção.
 > Depois desce a pirâmide conforme o time amadurece."
 
+---
+
 **4. ROI e cultura**
-- Caso do Bill: dois testes encontraram falha crítica em projeto que ia para produção sem validação
-- Dado de mercado: bug em produção custa 5x a 100x mais que bug pego em desenvolvimento (IBM)
-- Ângulo pessoal para ela: "O analista que aperta botão à noite não consegue crescer.
-  Automação libera o QA para pensar em qualidade, não em execução."
+
+- **Caso do Bill** (evento interno ArcelorMittal): o líder de QA rodou apenas dois testes
+  num projeto que a gestão queria enviar para produção sem validação — e encontrou falhas
+  críticas de última hora. Isso é o quality gate funcionando como deveria.
+
+- Dado de mercado: bug em produção custa 5x a 100x mais para corrigir do que bug pego em
+  desenvolvimento. (IBM Systems Sciences Institute — referência clássica do mercado de QA.)
+
+- Ângulo pessoal para ela:
+  > "O analista que aperta botão à noite não consegue crescer — ele está preso numa tarefa
+  > que a esteira faz melhor. Automação libera o QA para pensar em qualidade, não em execução."
 
 ---
 
 ## Pré-requisitos da demo
 
-- `agent-finder` rodando em `http://localhost:3000` (`npm start` na pasta agent-finder)
+- `agent-finder` rodando em `http://localhost:3000`
+  ```bash
+  cd agent-finder && npm start
+  ```
 - Claude Code aberto na pasta `demo automacao`
 - Repositório: https://github.com/rennernunes/demo-e2e-pipeline
 
@@ -54,7 +100,7 @@ Valide o medo dela antes de propor:
 
 ## Parte 1 — Geração dos testes com Claude Code (skills)
 
-Execute os skills em sequência no Claude Code:
+Execute os skills em sequência:
 
 ```
 /1-analisa-frontend    → lê o código + valida seletores com Playwright ao vivo
@@ -64,9 +110,11 @@ Execute os skills em sequência no Claude Code:
 ```
 
 Arquivos gerados:
-- `simple-project-robot 4/resources/pages/agent_finder_page.robot`
-- `simple-project-robot 4/resources/steps/agent_finder_steps.robot`
-- `simple-project-robot 4/tests/features/agent_finder.robot`
+```
+simple-project-robot 4/resources/pages/agent_finder_page.robot
+simple-project-robot 4/resources/steps/agent_finder_steps.robot
+simple-project-robot 4/tests/features/agent_finder.robot
+```
 
 ---
 
@@ -85,91 +133,112 @@ git push origin feat/add-e2e-tests
 gh pr create --title "feat: adiciona testes E2E" --body "Gerados via Claude Code"
 ```
 
-Abra o Actions e mostre ao vivo:
-1. Job "Testes Unitários (Jest)" → verde
-2. Job "Testes E2E (Robot Framework)" → verde
-3. PR liberado para merge → faça o merge
+Mostre no Actions:
+1. Jest ✅ → Robot ✅ → PR liberado → merge
 
 ---
 
-## Parte 3 — PR 2: E2E quebrado (mostra o bloqueio)
+## Parte 3 — PR 2: quebra o unitário
 
-O que fazer: corrigir algo no `agent-finder` (passa no unit) MAS quebrar um seletor no E2E no mesmo commit — simula um desenvolvedor que esqueceu de atualizar o teste.
+**Contexto para a audiência:** um dev alterou o componente AgentCard mas o teste unitário
+existente captura a regressão antes do merge.
 
 ```bash
 git checkout main && git pull
-git checkout -b fix/update-search
+git checkout -b fix/break-unit
 ```
 
-**Alteração 1 — muda algo no agent-finder (unit test passa):**
-
-Edite `agent-finder/src/utils/api.ts`, linha do agente Alex Johnson:
-```ts
+Edite `agent-finder/src/components/AgentFinder/AgentCard.tsx`, linha 185:
+```tsx
 // antes:
-name: 'Alex Johnson',
-// depois:
-name: 'Alex J. Johnson',
+<button className="agent-card__action-button agent-card__action-button--primary">
+  Assign
+</button>
+
+// depois (renomeia o botão — unit test espera "Assign"):
+<button className="agent-card__action-button agent-card__action-button--primary">
+  Atribuir
+</button>
 ```
 
-**Alteração 2 — no mesmo commit, quebra o seletor E2E:**
+```bash
+git add agent-finder/src/components/AgentFinder/AgentCard.tsx
+git commit -m "fix: traduz botão Assign para português"
+git push origin fix/break-unit
 
-Edite `simple-project-robot 4/tests/features/agent_finder.robot`:
+gh pr create --title "fix: traduz botão Assign" --body "Demo: quebra unitário"
+```
+
+Mostre no Actions:
+- Jest ❌ — teste `renders action buttons` falha (espera "Assign", encontra "Atribuir")
+- Robot nem executa (needs: unit-tests)
+- **PR bloqueado**
+
+---
+
+## Parte 4 — PR 3: corrige o unitário mas quebra o E2E
+
+**Contexto:** dev corrige o teste unitário para refletir a mudança, mas esquece de
+atualizar o cenário E2E que também usa o botão.
+
+Ainda na branch `fix/break-unit`, atualize o teste unitário:
+
+Edite `agent-finder/src/__tests__/components/AgentFinder/AgentCard.test.tsx`, linha 68:
+```tsx
+// antes:
+expect(screen.getByRole('button', { name: /assign/i })).toBeInTheDocument();
+
+// depois:
+expect(screen.getByRole('button', { name: /atribuir/i })).toBeInTheDocument();
+```
+
+E quebre o E2E — edite `simple-project-robot 4/tests/features/agent_finder.robot`,
+troque o nome do agente no cenário 1 para um que não existe:
 ```
 # antes:
 Quando digito "Alex Johnson" no campo de busca
 Então devo ver 1 agente encontrado
-E o card do agente "Alex Johnson" deve estar visível
 
-# depois (nome desatualizado — não vai encontrar):
-Quando digito "Alex Johnson" no campo de busca
+# depois:
+Quando digito "Alex Johnson Silva" no campo de busca
 Então devo ver 1 agente encontrado
-E o card do agente "Alex Johnson" deve estar visível
-E o status do agente "Alex Johnson" deve ser "Available"
 ```
 
-> Ou mais simples: apenas mude o nome no teste para um que não existe:
-> `Quando digito "Alex Johnson Silva" no campo de busca`
-
 ```bash
-git add agent-finder/src/utils/api.ts
+git add agent-finder/src/__tests__/components/AgentFinder/AgentCard.test.tsx
 git add "simple-project-robot 4/tests/features/agent_finder.robot"
-git commit -m "fix: atualiza nome do agente e cenário de busca"
-git push origin fix/update-search
-
-gh pr create --title "fix: atualiza nome do agente" --body "Unit ok, E2E deve falhar"
+git commit -m "fix: atualiza unit test + cenário E2E (incompleto)"
+git push origin fix/break-unit
 ```
 
 Mostre no Actions:
-- Jest ✅ (unit passou — o componente renderiza qualquer nome)
-- Robot ❌ (E2E falhou — agente não encontrado)
-- **PR bloqueado** — não pode fazer merge
+- Jest ✅ (unitário corrigido)
+- Robot ❌ (E2E não encontra o agente)
+- **PR ainda bloqueado**
 
 ---
 
-## Parte 4 — PR 3: corrige tudo e passa
+## Parte 5 — Corrige o E2E e passa tudo
 
 ```bash
-# ainda na branch fix/update-search
+# reverte o nome no cenário E2E:
+# "Alex Johnson Silva" → "Alex Johnson"
 ```
 
-Corrija o teste para usar o nome novo:
+Edite `simple-project-robot 4/tests/features/agent_finder.robot` de volta:
 ```
-Quando digito "Alex J. Johnson" no campo de busca
+Quando digito "Alex Johnson" no campo de busca
 Então devo ver 1 agente encontrado
-E o card do agente "Alex J. Johnson" deve estar visível
-E o status do agente "Alex J. Johnson" deve ser "Available"
 ```
 
 ```bash
 git add "simple-project-robot 4/tests/features/agent_finder.robot"
-git commit -m "fix: corrige cenário E2E com nome atualizado"
-git push origin fix/update-search
+git commit -m "fix: corrige cenário E2E com nome correto"
+git push origin fix/break-unit
 ```
 
-Pipeline re-executa automaticamente:
-- Jest ✅
-- Robot ✅
-- **PR liberado** → merge
+Mostre no Actions:
+- Jest ✅ → Robot ✅ → **PR liberado** → merge
 
 ---
 
@@ -179,25 +248,22 @@ Pipeline re-executa automaticamente:
 bash reset-demo.sh
 ```
 
-O script:
-- Fecha PRs abertos
-- Deleta branches de demo (local e remoto)
-- Remove os arquivos `agent_finder_*.robot` do main
-- Commita e faz push
-
+O script fecha os PRs, deleta as branches e remove os arquivos E2E gerados do main.
 Pronto para a próxima apresentação.
 
 ---
 
-## Resumo visual do fluxo
+## Resumo visual
 
 ```
 MAIN (estado inicial — sem arquivos E2E)
   │
-  ├─ feat/add-e2e-tests    → Jest ✅  Robot ✅  → MERGE
+  ├─ feat/add-e2e-tests  → Jest ✅  Robot ✅  → MERGE
   │
-  ├─ fix/update-search     → Jest ✅  Robot ❌  → BLOQUEADO
-  │    └─ (corrige E2E)    → Jest ✅  Robot ✅  → MERGE
+  ├─ fix/break-unit
+  │    ├─ commit 1: muda botão     → Jest ❌  bloqueado
+  │    ├─ commit 2: corrige unit   → Jest ✅  Robot ❌  bloqueado
+  │    └─ commit 3: corrige E2E   → Jest ✅  Robot ✅  → MERGE
   │
-  └─ reset-demo.sh         → volta ao estado inicial
+  └─ reset-demo.sh  →  estado inicial restaurado
 ```
