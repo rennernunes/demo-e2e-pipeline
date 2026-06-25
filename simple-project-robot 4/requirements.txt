@@ -1,0 +1,4 @@
+robotframework==6.1.1
+robotframework-seleniumlibrary==6.1.0
+robotframework-gherkinlibrary==0.2
+webdrivermanager==0.10.0
