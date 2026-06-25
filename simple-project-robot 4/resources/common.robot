@@ -18,7 +18,7 @@ Abrir Navegador
     Run Keyword If    '${BROWSER}' == 'headlesschrome'    Evaluate    $options.add_argument('--headless=new')
     Run Keyword If    '${BROWSER}' != 'headlesschrome'    Call Method    ${options}    add_argument    --start-maximized
     Open Browser    about:blank    chrome    options=${options}
-    Run Keyword If    '${BROWSER}' != 'headlesschrome'    Maximize Browser Window
+    Set Window Size    1280    900
     Set Selenium Timeout    ${TIMEOUT}
 
 Fechar Navegador
