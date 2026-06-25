@@ -12,14 +12,13 @@ ${BASE_URL}       https://the-internet.herokuapp.com/
 *** Keywords ***
 Abrir Navegador
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
-    Call Method    ${options}    add_argument    --disable-notifications
-    Call Method    ${options}    add_argument    --start-maximized
     Call Method    ${options}    add_argument    --no-sandbox
     Call Method    ${options}    add_argument    --disable-dev-shm-usage
-    Run Keyword If    '${BROWSER}' == 'headlesschrome'
-    ...    Call Method    ${options}    add_argument    --headless=new
+    Call Method    ${options}    add_argument    --disable-notifications
+    Run Keyword If    '${BROWSER}' == 'headlesschrome'    Evaluate    $options.add_argument('--headless=new')
+    Run Keyword If    '${BROWSER}' != 'headlesschrome'    Call Method    ${options}    add_argument    --start-maximized
     Open Browser    about:blank    chrome    options=${options}
-    Maximize Browser Window
+    Run Keyword If    '${BROWSER}' != 'headlesschrome'    Maximize Browser Window
     Set Selenium Timeout    ${TIMEOUT}
 
 Fechar Navegador
