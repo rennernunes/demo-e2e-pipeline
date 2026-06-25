@@ -1,0 +1,9 @@
+node_modules/
+agent-finder/node_modules/
+agent-finder/build/
+simple-project-robot 4/results/
+simple-project-robot 4/output.xml
+simple-project-robot 4/log.html
+simple-project-robot 4/report.html
+.DS_Store
+.playwright-mcp/

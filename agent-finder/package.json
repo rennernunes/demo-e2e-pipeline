@@ -28,7 +28,8 @@
     "@types/react-transition-group": "^4.4.12",
     "jest": "^27.5.1",
     "jest-environment-jsdom": "^27.5.1",
-    "ts-jest": "^27.1.4"
+    "ts-jest": "^27.1.4",
+    "wait-on": "^9.0.10"
   },
   "browserslist": {
     "production": [
